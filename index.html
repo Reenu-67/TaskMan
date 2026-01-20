@@ -11,10 +11,14 @@
   <div class="app">
 
     <!-- Header -->
-    <header>
+    <header class="app-header">
+      <div class="header-text">
       <h1>TaskMan</h1>
-      <p class="quote">"Small tasks done daily create big success."</p>
+      <p id="quoteText" class="quote">"Loading quote...."</p>
+      <span id="quoteAuthor"></span>
       <span class="date">January 2026</span>
+      </div>
+        <button id ="themeToggle" class="btn theme-toggle">🌙</button>
     </header>
 
     <!-- Task Input -->
@@ -36,9 +40,15 @@
         <button id ="pendingBtn" class="btn filter-btn">Pending</button>
         <button id ="completedBtn" class="btn filter-btn">Completed</button>
       </div>
-      <input type="text" placeholder="Search tasks..." />
-      <button class="btn theme-toggle">🌙</button>
+      <input id ="searchInput" type="text" placeholder="Search tasks..." />
+    
     </section>
+
+    <div class="task-counter">
+  <span id="totalCount">Total: 0</span>
+  <span id="pendingCount">Pending: 0</span>
+  <span id="completedCount">Completed: 0</span>
+    </div>
 
     <!-- Task List -->
     <section class="task-list" id ="taskList">

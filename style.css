@@ -87,6 +87,28 @@ header h1 {
   flex: 1;
 }
 
+.quote-box {
+  margin-top: 12px;
+  padding: 14px 18px;
+  background: rgba(99, 102, 241, 0.08);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-sm);
+}
+
+.quote-box p {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--gray-900);
+}
+
+.quote-box span {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--gray-700);
+  text-align: right;
+}
+
 /* 🌙 Toggle Button */
 .theme-toggle {
   border: none;
