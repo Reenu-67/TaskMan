@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskMan | Smart Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header>
+      <h1>TaskMan</h1>
+      <p class="quote">"Small tasks done daily create big success."</p>
+      <span class="date">January 2026</span>
+    </header>
+
+    <!-- Task Input -->
+    <section class="task-input">
+      <input id = "taskInput" type="text" placeholder="What needs to be done?" />
+      <input id ="dateInput" type="date" />
+      <select id ="priorityInput">
+        <option value="high">High Priority</option>
+        <option value="medium">Medium Priority</option>
+        <option value="low">Low Priority</option>
+      </select>
+      <button id ="addTaskBtn" class="btn btn-primary">Add Task</button>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+      <div class="filter-buttons">
+        <button id ="allBtn" class="btn filter-btn active">All</button>
+        <button id ="pendingBtn" class="btn filter-btn">Pending</button>
+        <button id ="completedBtn" class="btn filter-btn">Completed</button>
+      </div>
+      <input type="text" placeholder="Search tasks..." />
+      <button class="btn theme-toggle">🌙</button>
+    </section>
+
+    <!-- Task List -->
+    <section class="task-list" id ="taskList">
+    </section>
+
+  </div>
+ <script src="script.js"></script>
+</body>
+</html>

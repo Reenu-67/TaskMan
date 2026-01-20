@@ -4,6 +4,37 @@ const priorityInput = document.getElementById("priorityInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 
+let searchQuery = "";
+const searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    searchQuery = searchInput.value.toLowerCase();
+    renderTasks();
+  });
+}
+
+const themeToggle = document.getElementById("themeToggle");
+
+// Load saved theme
+if (localStorage.getItem("taskman_theme") === "dark") {
+  document.body.classList.add("dark");
+  themeToggle.textContent = "☀️";
+}
+
+// Toggle theme
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("taskman_theme", "dark");
+    themeToggle.textContent = "☀️";
+  } else {
+    localStorage.setItem("taskman_theme", "light");
+    themeToggle.textContent = "🌙";
+  }
+});
+
 let tasks = JSON.parse(localStorage.getItem("taskman_tasks")) || [];
 let currentFilter = "all";
 
@@ -39,15 +70,33 @@ function saveTasks() {
   localStorage.setItem("taskman_tasks",JSON.stringify(tasks));
 }
 
+function updateCounter() {
+  const total = tasks.length;
+  const completed = tasks.filter(task => task.completed).length;
+  const pending = total - completed;
+
+  document.getElementById("totalCount").textContent = `Total: ${total}`;
+  document.getElementById("pendingCount").textContent = `Pending: ${pending}`;
+  document.getElementById("completedCount").textContent = `Completed: ${completed}`;
+}
+
 function renderTasks() {
   taskList.innerHTML = "";
+  updateCounter();
 
   let filteredTasks = tasks;
 
+  //  Search filter
+if (searchQuery.trim() !== "") {
+  filteredTasks = filteredTasks.filter(task =>
+    task.title.toLowerCase().includes(searchQuery)
+  );
+}
+
   if (currentFilter === "pending") {
-    filteredTasks = tasks.filter(task => !task.completed);
+    filteredTasks = filteredTasks.filter(task => !task.completed);
   } else if (currentFilter === "completed") {
-    filteredTasks = tasks.filter(task => task.completed);
+    filteredTasks = filteredTasks.filter(task => task.completed);
   }
 
   if (filteredTasks.length === 0) {
@@ -114,3 +163,21 @@ function formatDate(dateStr){
   const options = { day: "2-digit",month:"short",year:"numeric"};
   return new Date(dateStr).toLocaleDateString("en-IN",options);
 }
+
+const quoteText = document.getElementById("quoteText");
+const quoteAuthor = document.getElementById("quoteAuthor");
+
+async function loadDailyQuote() {
+  try {
+    const res = await fetch("https://api.quotable.io/random");
+    const data = await res.json();
+
+    quoteText.textContent = `"${data.content}"`;
+    quoteAuthor.textContent = `— ${data.author}`;
+  } catch (error) {
+    quoteText.textContent = "Stay focused. Stay consistent.";
+    quoteAuthor.textContent = "";
+  }
+}
+
+loadDailyQuote();
